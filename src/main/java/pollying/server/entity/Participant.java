@@ -2,9 +2,11 @@ package pollying.server.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Participant {
 
     @Id
@@ -23,8 +25,6 @@ public class Participant {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Participant() {}
 
     public Participant(Poll poll, Item item, User user) {
         this.poll = poll;

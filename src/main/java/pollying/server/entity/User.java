@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
+@NoArgsConstructor
 public abstract class User {
 
     @Id
@@ -20,8 +21,6 @@ public abstract class User {
 
     @OneToMany(mappedBy = "user")
     private List<Participant> participants = new ArrayList<>();
-
-    public User() {}
 
     public User(String device) {
         this.device = device;
