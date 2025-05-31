@@ -1,11 +1,14 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @DiscriminatorValue("M")
 public class Manager extends User{
     private String name;
@@ -16,6 +19,5 @@ public class Manager extends User{
 
     public void addPoll(Poll poll) {
         this.polls.add(poll);
-        poll.setManager(this);
     }
 }

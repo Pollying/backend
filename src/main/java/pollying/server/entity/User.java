@@ -1,6 +1,7 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 @DiscriminatorColumn
 public abstract class User {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -19,8 +21,13 @@ public abstract class User {
     @OneToMany(mappedBy = "user")
     private List<Participant> participants = new ArrayList<>();
 
+    public User() {}
+
+    public User(String device) {
+        this.device = device;
+    }
+
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
-        participant.setUser(this);
     }
 }

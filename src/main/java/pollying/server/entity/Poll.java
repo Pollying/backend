@@ -1,14 +1,17 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Poll {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poll_id")
     private Long id;
 
@@ -28,17 +31,22 @@ public class Poll {
     @OneToMany(mappedBy = "poll")
     private List<Item> items = new ArrayList<>();
 
+    public Poll() {}
+
+    public Poll(String title, Manager manager) {
+        this.title = title;
+        this.manager = manager;
+        this.isComplete = false;
+        this.completedAt = null;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
-        participant.setPoll(this);
     }
 
     public void addItem(Item item) {
         this.items.add(item);
-        item.setPoll(this);
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
     }
 }

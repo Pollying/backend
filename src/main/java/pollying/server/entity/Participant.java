@@ -1,11 +1,15 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Participant {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "participant_id")
     private Long id;
 
     @ManyToOne
@@ -20,15 +24,11 @@ public class Participant {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void setPoll(Poll poll) {
+    public Participant() {}
+
+    public Participant(Poll poll, Item item, User user) {
         this.poll = poll;
-    }
-
-    public void setItem(Item item) {
         this.item = item;
-    }
-
-    public void setUser(User user) {
         this.user = user;
     }
 }
