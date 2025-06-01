@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Manager extends User{
     private String name;
+
+    @Column(unique = true)
     private String email;
 
     @OneToMany(mappedBy = "manager")
