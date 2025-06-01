@@ -1,8 +1,14 @@
 package pollying.server.security.oauth.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OAuthDto {
     private String name;
     private String email;
