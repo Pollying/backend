@@ -1,6 +1,7 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,7 +24,7 @@ public class Poll {
     private Long id;
 
     private String title;
-    private boolean isComplete;
+    private boolean isComplete = false;
     private LocalDateTime completedAt;
 
     @CreatedDate
@@ -43,10 +44,10 @@ public class Poll {
     @OneToMany(mappedBy = "poll")
     private List<Item> items = new ArrayList<>();
 
+    @Builder
     public Poll(String title, Manager manager, LocalDateTime completedAt) {
         this.title = title;
         this.manager = manager;
-        this.isComplete = false;
         this.completedAt = completedAt;
     }
 
