@@ -1,6 +1,7 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +19,7 @@ public class Item {
     private Long id;
 
     private String content;
-    private Integer count;
+    private Integer count = 0;
 
     @ManyToOne
     @JoinColumn(name = "poll_id")
@@ -27,9 +28,9 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Participant> participants = new ArrayList<>();
 
+    @Builder
     public Item(String content, Poll poll) {
         this.content = content;
-        this.count = 0;
         this.poll = poll;
     }
 

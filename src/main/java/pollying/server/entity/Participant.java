@@ -1,6 +1,7 @@
 package pollying.server.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +27,7 @@ public class Participant {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder
     public Participant(Poll poll, Item item, User user) {
         this.poll = poll;
         this.item = item;
