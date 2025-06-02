@@ -24,8 +24,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Participant> participants = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
-    private Manager manager = null;
 
     @Builder
     public User(String device) {
@@ -34,9 +32,5 @@ public class User {
 
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
-    }
-
-    public void connect(Manager manager) {
-        this.manager = manager;
     }
 }
