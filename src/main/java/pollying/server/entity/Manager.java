@@ -23,10 +23,6 @@ public class Manager {
     @Column(unique = true)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @OneToMany(mappedBy = "manager")
     private List<Poll> polls = new ArrayList<>();
 
@@ -38,14 +34,5 @@ public class Manager {
 
     public void addPoll(Poll poll) {
         this.polls.add(poll);
-    }
-
-    public void connect(User user) {
-        this.user = user;
-        user.connect(this);
-    }
-
-    public void disconnect() {
-        this.user = null;
     }
 }
