@@ -1,6 +1,7 @@
 package pollying.server.security.oauth.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -16,6 +17,7 @@ import pollying.server.security.oauth.response.SocialLogin;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomOAuthUserService extends DefaultOAuth2UserService {
 
     private final ManagerRepository repository;
@@ -44,6 +46,7 @@ public class CustomOAuthUserService extends DefaultOAuth2UserService {
                     .role("ROLE_MANAGER")
                     .build();
 
+            log.info("success load user = {}", dto.toString());
             return new CustomOAuth2User(dto);
 
         } catch (InstantiationException e) {
