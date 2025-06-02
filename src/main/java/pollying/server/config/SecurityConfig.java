@@ -27,8 +27,10 @@ public class SecurityConfig {
     private final OAuthSuccessHandler oAuthSuccessHandler;
     private final JwtFilter jwtFilter;
 
+
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
         http
                 .formLogin((auth) -> auth.disable());
 

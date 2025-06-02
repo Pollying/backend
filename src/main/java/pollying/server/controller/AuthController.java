@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pollying.server.dto.AuthUser;
+import pollying.server.dto.InputDevice;
 import pollying.server.security.jwt.JwtService;
 import pollying.server.security.jwt.dto.JwtsDto;
-import pollying.server.security.userdetails.CustomUserDetails;
+import pollying.server.security.resolver.annotation.DeviceId;
+import pollying.server.security.resolver.annotation.Login;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,10 +25,10 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/api/login")
-    public ResponseEntity<?> login(Authentication authentication) {
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+    public ResponseEntity<?> login(@Login AuthUser user) {
+        log.info("user = {}", user);
 
-        JwtsDto jwtsDto = jwtService.create(principal.getEmail());
+        JwtsDto jwtsDto = jwtService.create(user.getEmail());
 
         Map<String, Object> response = new HashMap<>();
 
@@ -35,5 +38,12 @@ public class AuthController {
 
         log.info("토큰 생성 완료");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/api/device")
+    public ResponseEntity<?> device(@DeviceId InputDevice device) {
+        log.info("device id = {}", device.getId());
+
+        return ResponseEntity.ok().body("ok");
     }
 }
