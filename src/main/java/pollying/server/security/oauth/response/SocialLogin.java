@@ -15,10 +15,9 @@ public enum SocialLogin {
 
     public static OAuthResponse getResponse(String providerId, Map<String, Object> attribute) throws InstantiationException, IllegalAccessException {
         for (SocialLogin value : SocialLogin.values()) {
-            if (value.name.equals("providerId")) {
-                OAuthResponse oAuthResponse = value.response.getClass().newInstance();
-                oAuthResponse.setAttribute(attribute);
-                return oAuthResponse;
+            if (value.name.equals(providerId)) {
+                value.response.setAttribute(attribute);
+                return value.response;
             }
         }
         return null;
