@@ -30,4 +30,8 @@ public class CustomUserDetails implements UserDetails {
     public String getEmail() {
         return manager.getEmail();
     }
+
+    public Long getId() {
+        return manager.getId();
+    }
 }
