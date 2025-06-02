@@ -31,3 +31,11 @@ const response = await fetch("http://localhost:8080/api/login", {
 access token 만료 : 10분, refresh token 만료 : 2시간
 <br>
 아직 refresh 기능 없음 [2025년 6월 2일]
+
+<br>
+<br>
+
+#### @Login, @DeviceId
+로그인된 유저는 controller에서 **@Login AuthUser**로 불러올 수 있음.
+<br>
+디바이스 아이디는 **@DeviceId InputDeivce**로 불러올 수 있음.
