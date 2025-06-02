@@ -3,23 +3,22 @@ package pollying.server.security.oauth.response;
 import java.util.Map;
 
 public enum SocialLogin {
-    KAKAO("kakao", new KakaoOAuthResponse());
+    KAKAO("kakao");
 
     private String name;
-    private OAuthResponse response;
 
-    SocialLogin(String name, OAuthResponse response) {
+    SocialLogin(String name) {
         this.name = name;
-        this.response = response;
     }
 
     public static OAuthResponse getResponse(String providerId, Map<String, Object> attribute) throws InstantiationException, IllegalAccessException {
-        for (SocialLogin value : SocialLogin.values()) {
-            if (value.name.equals(providerId)) {
-                value.response.setAttribute(attribute);
-                return value.response;
-            }
+        OAuthResponse response = null;
+
+        if (providerId.equals(SocialLogin.KAKAO.name)) {
+            response = new KakaoOAuthResponse();
         }
-        return null;
+
+        response.setAttribute(attribute);
+        return response;
     }
 }

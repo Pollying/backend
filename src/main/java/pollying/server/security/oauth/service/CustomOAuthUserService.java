@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import pollying.server.entity.Manager;
 import pollying.server.repository.ManagerRepository;
-import pollying.server.security.oauth.details.CustomOAuth2User;
+import pollying.server.security.userdetails.CustomOAuth2User;
 import pollying.server.security.oauth.dto.OAuthDto;
 import pollying.server.security.oauth.response.OAuthResponse;
 import pollying.server.security.oauth.response.SocialLogin;

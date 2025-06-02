@@ -1,4 +1,4 @@
-package pollying.server.security.oauth.details;
+package pollying.server.security.userdetails;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
