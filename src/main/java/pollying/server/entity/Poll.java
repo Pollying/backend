@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,9 +21,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Poll {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuids")
+    @GenericGenerator(name= "uuid2", strategy = "uuid")
     @Column(name = "poll_id")
-    private Long id;
+    private UUID id;
 
     private String title;
     private boolean isComplete = false;
@@ -35,13 +38,13 @@ public class Poll {
     private LocalDateTime updatedAt;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "manager_id")
     private Manager manager;
 
     @OneToMany(mappedBy = "poll")
     private List<Participant> participants = new ArrayList<>();
 
-    @OneToMany(mappedBy = "poll")
+    @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
     @Builder
@@ -57,5 +60,14 @@ public class Poll {
 
     public void addItem(Item item) {
         this.items.add(item);
+    }
+
+    public void earlyComplete() {
+        complete();
+        completedAt = LocalDateTime.now();
+    }
+
+    public void complete() {
+        this.isComplete = true;
     }
 }
