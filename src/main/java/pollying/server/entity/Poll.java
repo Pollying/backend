@@ -21,8 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Poll {
     @Id
-    @GeneratedValue(generator = "uuids")
-    @GenericGenerator(name= "uuid2", strategy = "uuid")
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "poll_id")
     private UUID id;
 

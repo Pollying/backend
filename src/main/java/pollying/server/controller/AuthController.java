@@ -2,6 +2,7 @@ package pollying.server.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +25,17 @@ public class AuthController {
 
     private final JwtService jwtService;
 
-    @PostMapping("/api/login")
+    @PostMapping("/api/auth/login")
     public ResponseEntity<?> login(@Login AuthUser user) {
         log.info("user = {}", user);
 
         JwtsDto jwtsDto = jwtService.create(user.getEmail());
 
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("code", HttpStatus.CREATED.value());
-        response.put("message", "토큰이 생성되었습니다.");
-        response.put("jwts", jwtsDto);
+        ResponseDto response = ResponseDto.builder()
+                .code(HttpStatus.CREATED.value())
+                .message("토큰이 생성되었습니다.")
+                .data(jwtsDto)
+                .build();
 
         log.info("토큰 생성 완료");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -45,5 +46,21 @@ public class AuthController {
         log.info("device id = {}", device.getId());
 
         return ResponseEntity.ok().body("ok");
+    }
+
+    @GetMapping("/api/auth/refresh")
+    public ResponseEntity<?> refreshToken(@Login AuthUser user) {
+        log.info("user = {}", user);
+
+        JwtsDto jwtsDto = jwtService.create(user.getEmail());
+
+        ResponseDto response = ResponseDto.builder()
+                .code(HttpStatus.CREATED.value())
+                .message("토큰이 재생성되었습니다.")
+                .data(jwtsDto)
+                .build();
+
+        log.info("토큰 재생성 완료");
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

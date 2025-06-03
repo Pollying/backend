@@ -24,6 +24,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .exposedHeaders("Authorization", "Set-Cookie")
                 .allowedMethods("**")
+                .allowedHeaders("*")
                 .allowedOrigins("http://localhost:3000", "http://localhost:5500");
     }
 
