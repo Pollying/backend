@@ -10,7 +10,7 @@ http://localhost:8080/oauth2/authorization/kakao
 <br>
 로그인 흐름
 <br>
-카카오 로그인 -> http://localhost:8080/api/login 으로 post 요청 
+카카오 로그인 -> http://localhost:8080/api/auth/login 으로 post 요청 
 <br>
 <br>
 ex
