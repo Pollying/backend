@@ -21,7 +21,7 @@ public class PollTest {
     @Autowired
     EntityManager em;
 
-//    @Test
+    @Test
 //    @DisplayName("poll 생성")
     void pollCreate() {
         // given

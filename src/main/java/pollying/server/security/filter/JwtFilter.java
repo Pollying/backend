@@ -42,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
 
-        if (!requestURI.equals("/api/login") && !requestURI.contains("/api/auth")) {
+        if (!requestURI.contains("/api/auth")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -73,6 +73,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String token = null;
 
         if (StringUtils.hasText(authorization)) {
+            log.info("authorization header = {}", authorization);
             token = authorization.substring(7);
         } else {
             for (Cookie cookie : request.getCookies()) {

@@ -49,12 +49,12 @@ public class SecurityConfig {
                 .httpBasic((auth) -> auth.disable());
 
         http
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/login").authenticated()
                         .anyRequest().permitAll());
+
+        http
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         http
                 .oauth2Login((auth) -> auth
@@ -70,6 +70,7 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5500"));
         configuration.setAllowedMethods(List.of("GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
